@@ -20,7 +20,6 @@ public class controller {
     private Label promptLabel;
        
     public void convertButtonHandler() {
-    	System.out.println("test");
     	double km = Double.parseDouble(kilometerTextField.getText());
     	double mi = km * 0.621371;
     	outputLabel.setText(km + "km is " + mi + "miles");
