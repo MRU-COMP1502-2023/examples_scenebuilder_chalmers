@@ -18,11 +18,7 @@ public class controller {
 
     @FXML
     private Label promptLabel;
-    
-    public void initialize() {
-    	
-    }
-    
+       
     public void convertButtonHandler() {
     	System.out.println("test");
     	double km = Double.parseDouble(kilometerTextField.getText());
