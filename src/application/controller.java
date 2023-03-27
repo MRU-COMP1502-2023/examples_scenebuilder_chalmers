@@ -35,6 +35,18 @@ public class controller {
     
     @FXML
     private ListView<String> historyView;
+    
+    @FXML
+    private Button convertMassButton;
+
+    @FXML
+    private RadioButton gramsRadioButton;
+    
+    @FXML
+    private RadioButton newtonsRadioButton;
+
+    @FXML
+    private TextField kgTextBox;
        
     public void convertButtonHandler() throws Exception {
     	double km = Double.parseDouble(kilometerTextField.getText());
@@ -54,6 +66,28 @@ public class controller {
     		throw new Exception("must select miles or meters");
     	}
     	
+    	outputLabel.setText(result);
+    	
+    	historyView.getItems().add(result);
+    }
+    
+    public void convertMassButtonHandler() throws Exception {
+    	double kg = Double.parseDouble(kgTextBox.getText());
+    	
+    	double scale;
+    	String result;
+    	if (gramsRadioButton.isSelected()) {
+    		scale = 1000;
+        	result = kg + "kg is " + (kg * scale) + "grams";
+    	}
+    	else if (newtonsRadioButton.isSelected()) {
+    		scale = 9.81;
+    		result = kg + "kg is " + (kg * scale) + "Newtons";
+    	}
+    	else
+    	{
+    		throw new Exception("must select grams or newtons");
+    	}
     	
     	outputLabel.setText(result);
     	
