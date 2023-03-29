@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import model.ConversionResult;
 
 public class controller {
 		
@@ -34,7 +35,7 @@ public class controller {
     private RadioButton milesRadioButton;
     
     @FXML
-    private ListView<String> historyView;
+    private ListView<ConversionResult> historyView;
     
     @FXML
     private Button convertMassButton;
@@ -51,22 +52,19 @@ public class controller {
     public void convertButtonHandler() throws Exception {
     	double km = Double.parseDouble(kilometerTextField.getText());
     	
-    	double scale;
-    	String result;
+    	ConversionResult result;
     	if (milesRadioButton.isSelected()) {
-    		scale = 0.621371;
-        	result = km + "km is " + (km * scale) + "miles";
+    		result = new ConversionResult("km", "miles", km, km * 0.621371);
     	}
     	else if (metersRadioButton.isSelected()) {
-    		scale = 1000;
-    		result = km + "km is " + (km * scale) + "meters";
+    		result = new ConversionResult("km", "meters", km, km * 1000);
     	}
     	else
     	{
     		throw new Exception("must select miles or meters");
     	}
     	
-    	outputLabel.setText(result);
+    	outputLabel.setText(result.toString());
     	
     	historyView.getItems().add(result);
     }
@@ -74,22 +72,19 @@ public class controller {
     public void convertMassButtonHandler() throws Exception {
     	double kg = Double.parseDouble(kgTextBox.getText());
     	
-    	double scale;
-    	String result;
+    	ConversionResult result;
     	if (gramsRadioButton.isSelected()) {
-    		scale = 1000;
-        	result = kg + "kg is " + (kg * scale) + "grams";
+    		result = new ConversionResult("kg", "g", kg, kg*1000);
     	}
     	else if (newtonsRadioButton.isSelected()) {
-    		scale = 9.81;
-    		result = kg + "kg is " + (kg * scale) + "Newtons";
+    		result = new ConversionResult("kg", "N", kg, kg*9.81);
     	}
     	else
     	{
     		throw new Exception("must select grams or newtons");
     	}
     	
-    	outputLabel.setText(result);
+    	outputLabel.setText(result.toString());
     	
     	historyView.getItems().add(result);
     }
@@ -99,7 +94,7 @@ public class controller {
     }
     
     public void clearSelectedButtonHandler() {
-    	String selected = historyView.getSelectionModel().getSelectedItem();
+    	ConversionResult selected = historyView.getSelectionModel().getSelectedItem();
     	historyView.getItems().remove(selected);
     }
 }
